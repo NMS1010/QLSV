@@ -1,0 +1,53 @@
+﻿@model List<QLSV.Models.FileKhoaHoc>
+
+@{
+    ViewData["Title"] = "Tài liệu";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div class="table-responsive">
+        <table class="table table-hover e-commerce-table">
+            <thead>
+                <tr>
+                    <th style="padding: 10px; border: 1px solid #000;">ID</th>
+                    <th style="padding: 10px; border: 1px solid #000;">Tên khoá học</th>
+                    <th style="padding: 10px; border: 1px solid #000;">Tên giáo viên</th>
+                    <th style="padding: 10px; border: 1px solid #000;">Tên tài liệu</th>
+                    <th style="padding: 10px; border: 1px solid #000;">File đính kèm</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var file in Model)
+                    {
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #000;">@file.Id</td>
+                            <td style="padding: 10px; border: 1px solid #000;">@file?.KhoaHoc.course_name</td>
+                            <td style="padding: 10px; border: 1px solid #000;">@file?.KhoaHoc.GiaoVien?.full_name</td>
+                            <td style="padding: 10px; border: 1px solid #000;">@file.Name</td>
+                            <td style="padding: 10px; border: 1px solid #000;"><a href="/@file.Path" target="_blank">Xem</a></td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+@section Styles {
+    <link href="~/Adminassets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+}
+@section Scripts {
+    <script src="~/Adminassets/js/pages/e-commerce-order-list.js"></script>
+    <script src="~/Adminassets/vendors/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Adminassets/vendors/datatables/dataTables.bootstrap.min.js"></script>
+}
+
+

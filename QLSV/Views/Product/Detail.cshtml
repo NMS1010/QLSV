@@ -1,0 +1,78 @@
+﻿@model KhoaHoc
+
+@{
+    ViewData["Title"] = "Chi tiết khóa học";
+}
+
+
+<div id="content" class="site-content">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="breadcrumb" style="background-image: url('/@Model?.Image')">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h1> @Model.course_name</h1>
+                                <ul><li><a href="/">Home</a></li><li class="active">@Model.course_name</li></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="academic-book-widget bxw">
+                    <div class="row pt-2 pb-3">
+                        <div class="col-md-6 d-flex my-auto">
+                            <h3>Thời gian: @Model.NgayBatDau.ToString("dd-MM-yyyy") đến @Model.NgayKetThuc.ToString("dd-MM-yyyy")</h3>
+                        </div>
+                        <div class="col-md-3 my-auto">
+                            @foreach(var item in Model?.LichKhoaHocs)
+                            {
+                                <h3>@item.Thu - @item.ThoiGian</h3>
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/admin/hocsinh/details/@Model.Id" class="btn-2">
+                                <i class="fas fa-calendar-check"></i> Đăng ký
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="academic-single pb60 pt-5">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>Mô tả khoá học</h2>
+                            <p>@Model.description</p>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="academic-tes-author-name">
+                                <h3>Giáo viên: @Model.GiaoVien?.full_name</h3>
+                            </div>
+                            <div id="single-testimonial-carousel" class="pb-4 pt-4">
+
+                                <div class="item">
+                                    <div class="academic-testimonial">
+                                        &quot;The course was an eyeopener it was like going to a personal training session in the gym paralysed, and starting moving and developing muscles during the session.&quot;                                    <div class="academic-tes-author">
+                                            <div class="academic-tes-author-avatar pt-2">
+                                                <img src="/@Model.Image"
+                                                     alt="Ruth G. McCallister">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="academic-single-price">
+                                <h2>Giá: @Model.gia đ</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

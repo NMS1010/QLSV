@@ -1,0 +1,94 @@
+﻿@model QLSV.Models.Blog
+
+@{
+    ViewData["Title"] = "BlogArticle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Blog> Baivietlienquan = ViewBag.Baivietlienquan; }
+
+@{
+}
+
+<section class="breadcrumb breadcrumb-img">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>News Single</h1>
+                <ul>
+                    <li><a href="index-2.html">Home</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li>News Single</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--========================================================
+                      NEWS
+=========================================================-->
+<section class="news-single pt60 pb50" style="background: #d58b8b">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="font-weight-bold">
+                    Published on <span class="c-yellow">27 Mar 2021</span>
+                </div>
+                <h1>
+                    @Model.Title
+                </h1>
+                <p>
+                    @Model.TContent
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="news-item-img mtb50">
+        <img src="~/Images/news/@Url.Content(Model.Image)" alt="@Model.Title">
+        <i data-src="https://www.youtube.com/watch?v=9xwazD5SyVg" data-fancybox class="fas fa-play"></i>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <p style="color: rgb(0, 0, 0); "> 
+                    @Html.Raw(Model.Contents)
+                </p>
+            </div>
+            <div class="col-md-12 mt80 wow fadeInUp" data-wow-delay=".3s">
+                <h2>Related Articles</h2>
+                <div class="news-carousel owl-carousel owl-theme mt40">
+                    @if (Baivietlienquan != null && Baivietlienquan.Count() > 0)
+                    {
+                        foreach (var item in Baivietlienquan)
+                        {
+                            string _url = $"/tin-tuc/{item.Alias}-{item.Id}.html";
+                            <div class="news-item bxw">
+                                <div class="news-item-img">
+                                    <img src="~/Images/news/@Url.Content(item.Image)" alt="@item.Title">
+                                    <i data-src="https://www.youtube.com/watch?v=9xwazD5SyVg" data-fancybox class="fas fa-play"></i>
+                                </div>
+                                <div class="news-item-content">
+                                    <span>April 28, 2019</span>
+                                    <a href="@_url">
+                                        <h3>
+                                            @item.Title
+                                        </h3>
+                                    </a>
+                                    <hr>
+                                    <p>
+                                        @item.TContent
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

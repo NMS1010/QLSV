@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "ViewSendVerifyCode";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<input type="button" class="nk-btn nk-btn-rounded nk-btn-color-white ml-20" value="Send" onclick="location.href='@Url.Action("SendVerify", "HocSinh")'" />
+

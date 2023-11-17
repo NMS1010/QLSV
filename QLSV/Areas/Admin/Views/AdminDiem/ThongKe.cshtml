@@ -1,0 +1,166 @@
+﻿﻿@{
+    ViewData["Title"] = "Thống kê học tập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var hsIncrease = ViewData["top-5-increase"] as List<DiemHocSinh>;
+    var hsDescrease = ViewData["top-5-descrease"] as List<DiemHocSinh>;
+}
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a asp-area="Admin" asp-controller="AdminDiem" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Khoá học</a>
+            <span class="breadcrumb-item">@ViewBag?.khoahoc?.course_name</span>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>Thống kê điểm số</h5>
+                </div>
+                <div class="m-t-50" style="height: 500px !important; width: 1000px !important;">
+                    <canvas id="grade-chart"></canvas>
+                </div>
+                <div class="m-t-50" style="height: 500px !important; width: 1000px !important;">
+                    <canvas id="grade-line-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>Top 5 học sinh cao điểm</h5>
+                    <div>
+                        <a href="/Admin/AdminDiem/Edit/1" class="btn btn-sm btn-default">Xem tất cả</a>
+                    </div>
+                </div>
+                <div class="m-t-30">
+                    <div class="overflow-y-auto relative scrollable" style="max-height: 500px">
+                        <ul class="list-group list-group-flush">
+                            @if (hsIncrease != null && hsIncrease.Count > 0)
+                            {
+                                foreach (var item in hsIncrease)
+                                {
+                                    <li class="list-group-item p-h-0">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <h6 class="m-b-0">
+                                                        <a href="javascript:void(0);" class="text-dark"> @item.HocSinh?.HoTen</a>
+                                                    </h6>
+                                                    <span class="text-muted font-size-13">Điểm: @item.SoDiem</span>
+                                                </div>
+                                            </div>
+                                            <span class="badge badge-pill badge-cyan font-size-12">
+                                                <span class="font-weight-semibold m-l-5">@item.NhanXet</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                }
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>Top 5 học sinh thấp điểm</h5>
+                    <div>
+                        <a href="/Admin/AdminDiem/Edit/1" class="btn btn-sm btn-default">Xem tất cả</a>
+                    </div>
+                </div>
+                <div class="m-t-30">
+                    <div class="overflow-y-auto relative scrollable" style="max-height: 500px">
+                        <ul class="list-group list-group-flush">
+                            @if (hsDescrease != null && hsDescrease.Count > 0)
+                            {
+                                foreach (var item in hsDescrease)
+                                {
+                                    <li class="list-group-item p-h-0">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <h6 class="m-b-0">
+                                                        <a href="javascript:void(0);" class="text-dark"> @item.HocSinh?.HoTen</a>
+                                                    </h6>
+                                                    <span class="text-muted font-size-13">Điểm: @item.SoDiem</span>
+                                                </div>
+                                            </div>
+                                            <span class="badge badge-pill badge-cyan font-size-12">
+                                                <span class="font-weight-semibold m-l-5">@item.NhanXet</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                }
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var diemSoBar = ["0-2", "2-4", "4-6", "6-8", "8-10"];
+        var duLieuBar = [@ViewData["1-2"], @ViewData["2-4"], @ViewData["4-6"], @ViewData["6-8"], @ViewData["8-10"]];
+
+        new Chart("grade-chart", {
+            type: 'bar',
+            data: {
+                labels: diemSoBar,
+                datasets: [{
+                    label: 'Thống kê điểm số',
+                    data: duLieuBar,
+                    fill: false,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+            }
+        });
+        new Chart("grade-line-chart", {
+            type: 'line',
+            data: {
+                labels: diemSoBar,
+                datasets: [{
+                    axis: 'y',
+                    label: 'Thống kê điểm số',
+                    data: duLieuBar,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            }
+        });
+    </script>
+}
+No newline at end of file

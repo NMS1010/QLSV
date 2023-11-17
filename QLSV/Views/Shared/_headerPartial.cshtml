@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    string customerId = httpContextAccessor.HttpContext.Session.GetString("CustomerId");
+}
+<header>
+    <div class="container">
+    </div><div class="row">
+        <div class="col-md-4 col-lg-2">
+            <div class="logo">
+                <a href="index-2.html">
+                    <img src="~/assetions/img/logo-4.png" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-8">
+            <nav>
+                <ul>
+                    <li>
+                        <a class="active" href="/">Trang chủ</a>
+                    </li>
+                    <li><a href="/about.html">Về chúng tôi</a></li>
+                    <li><a href="/academics.html">Các khóa học</a></li>
+                    <li><a href="/blogs.html">Tin tức</a></li>
+                    @if (!string.IsNullOrEmpty(customerId))
+                    {
+                        <li><a href="/Admin/hocsinh/logout">Đăng xuất</a></li>
+                    } else
+                    {
+                        <li><a href="/dang-nhap.html">Đăng nhập</a></li>
+                        <li><a href="/dang-ky.html">Đăng ký</a></li>
+                    }
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="ti-menu"></i>
+                <i class="ti-close"></i>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+        </div>
+    </div>
+</header>

@@ -1,0 +1,139 @@
+﻿@model QLSV.Models.Admin
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    QLSV.ModelViews.ChangePasswordViewModel changePassword = new QLSV.ModelViews.ChangePasswordViewModel();
+}
+<!-- Content Wrapper START -->
+
+    <div class="page-header no-gutters has-tab">
+        <h2 class="font-weight-normal">Setting</h2>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tab-account">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-network">Network</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="tab-content m-t-15">
+            <div class="tab-pane fade show active" id="tab-account">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <div class="d-md-flex align-items-center">
+                                    <div class="text-center text-sm-left ">
+                                        <div class="avatar avatar-image" style="width: 150px; height:150px">
+                                            <img src="~/Adminassets/images/avatars/thumb-3.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="text-center text-sm-left m-v-15 p-l-30">
+                                        <h2 class="m-b-5">@Model?.HoTen</h2>
+                                        <p class="text-opacity font-size-13">@Model.TaiKhoan</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="d-md-block d-none border-left col-1"></div>
+                                    <div class="col">
+                                        <ul class="list-unstyled m-t-10">
+                                            <li class="row">
+                                                <p class="col-sm-4 col-4 font-weight-semibold text-dark m-b-5">
+                                                    <i class="m-r-10 text-primary anticon anticon-mail"></i>
+                                                    <span>Email: </span>
+                                                </p>
+                                                <p class="col font-weight-semibold"> @Model.TaiKhoan</p>
+                                            </li>
+                                        </ul>
+                                        <div class="d-flex font-size-22 m-t-15">
+                                            <a href="" class="text-gray p-r-20">
+                                                <i class="anticon anticon-facebook"></i>
+                                            </a>
+                                            <a href="" class="text-gray p-r-20">
+                                                <i class="anticon anticon-twitter"></i>
+                                            </a>
+                                            <a href="" class="text-gray p-r-20">
+                                                <i class="anticon anticon-behance"></i>
+                                            </a>
+                                            <a href="" class="text-gray p-r-20">
+                                                <i class="anticon anticon-dribbble"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+
+                            <form asp-controller="Admin" asp-action="UpdateInfo" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="tab-content m-t-15">
+                                    <div class="tab-pane fade show active" id="product-edit-basic">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label class="font-weight-semibold" for="productName">Họ tên</label>
+                                                    <input type="text" class="form-control" asp-for="HoTen" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="font-weight-semibold" for="productName">email</label>
+                                                    <input type="text" class="form-control" asp-for="TaiKhoan" required readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+                                    <div class="m-b-15">
+                                        <button class="btn btn-primary">
+                                            <i class="anticon anticon-save"></i>
+                                            <span>Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-network">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Basic Infomation</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <div class="avatar avatar-image  m-h-10 m-r-15" style="height: 80px; width: 80px">
+                                <img src="~/Adminassets/images/avatars/thumb-3.jpg" alt="">
+                            </div>
+                            <div class="m-l-20 m-r-20">
+                                <h5 class="m-b-5 font-size-18">Change Avatar</h5>
+                                <p class="opacity-07 font-size-13 m-b-0">
+                                    Recommended Dimensions: <br>
+                                    120x120 Max fil size: 5MB
+                                </p>
+                            </div>
+                            <div>
+                                <button class="btn btn-tone btn-primary">Upload</button>
+                            </div>
+                        </div>
+                        <hr class="m-v-25">
+                    </div>
+                </div>
+                @await Html.PartialAsync("changepasspartial", changePassword)
+            </div>
+        </div>
+    </div>
+
+<!-- Content Wrapper END -->

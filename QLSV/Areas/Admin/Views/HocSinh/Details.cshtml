@@ -1,0 +1,107 @@
+@model QLSV.Models.KhoaHoc
+
+@{ ViewData["Title"] = "Thông tin khóa học" + Model.course_name;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int productID = Model.Id;
+}
+    <div class="page-header">
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Thông tin sản phẩm : @Model.course_name</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card-body">
+    <h4 class="card-title">Thông tin sản phẩm : @Model.course_name</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark font-weight-semibold">@Model.Id</td>
+                    </tr>
+                    <tr>
+                        <td>Tên:</td>
+                    <td>@Model.course_name</td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả:</td>
+                        <td>@Html.Raw(Model.description)</td>
+                    </tr>
+                    <tr>
+                        <td>Giá:</td>
+                        <td>@Model.gia đ</td>
+                    </tr>
+                    <tr>
+                    <td>Ngày bắt đầu:</td>
+                        <td>@Model.NgayBatDau</td>
+                    </tr>
+                    <tr>
+                    <td>Ngày kết thúc:</td>
+                        <td>@Model.NgayKetThuc</td>
+                    </tr>
+                    <tr>
+                        <td>Ảnh:</td>
+                        <td>
+                        <img width="50" height="50" src="~/@Model.Image" alt="@Model.course_name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        
+                        <a class="btn btn-primary btn-tone m-r-5 add-to-cart">Thêm</a>
+                        <input hidden asp-for="@productID" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                function loadHeaderCart() {
+                    $('#miniCart').load("/AjaxContent/HeaderCart");
+                        $('#numberCart').load("/AjaxContent/NumberCart");
+                        }
+                        $(".add-to-cart").click(function () {
+                            var productid = $('#productID').val();
+                            $.ajax({
+                                url: '/api/cart/add',
+                                type: "POST",
+                                dataType: "JSON",
+                                data: {
+                                    productID: productid
+                                },
+                                async: false,
+                                cache: false,
+                                success: function (response) {
+                                    if (response.result == 'Redirect') {
+                                        window.location = response.url;
+                                    }
+                                    else if (response.success) {
+                                        loadHeaderCart(); //Add Product success
+                                        location.href = "/cart.html";
+                                        alert("Thêm thành công")
+                                    } else {
+                                        alert("Thêm thất bại, bạn đã đăng ký khoá học này rồi");
+                                    }
+                                    console.log(response); // log to the console to see whether it worked
+                                },
+                                error: function (error) {
+                                    alert("Bạn đã đăng ký khoá học này rồi");
+                                }
+                            });
+                        });
+                    });
+                });
+    </script>
+    <script>
+        $("#txtFile").change(function (event) {
+            var files = event.target.files;
+            $("#imgView").attr("src", window.URL.createObjectURL(files[0]));
+        })
+    </script>
+}

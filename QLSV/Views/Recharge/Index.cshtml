@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Nạp tiền vào tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="table-responsive">
+    <form action="/Recharge/CreatePaymentUrl" id="frmCreateOrder" method="POST">
+        <div class="form-group">
+            <label for="ordertype">Giao dịch</label>
+            <input name="OrderType" id="ordertype" class="form-control" value="Nạp tiền tài khoản" readonly/>
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="Name">Tên khách hàng</label>
+            <input class="form-control"
+                   id="Name"
+                   name="Name"
+                   type="text"
+                   value="@ViewData["UserName"]" readonly>
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="Amount">Số tiền</label>
+            <input class="form-control"
+                   id="Amount"
+                   min="10000"
+                   name="Amount"
+                   type="number"
+                   value="">
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="OrderDescription">Nội dung thanh toán</label>
+            <textarea class="form-control"
+                      cols="20"
+                      required
+                      id="OrderDescription"
+                      name="OrderDescription"
+                      rows="2">Nạp tiền vào tài khoản</textarea>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Thanh toán (Checkout)</button>
+    </form>
+</div>

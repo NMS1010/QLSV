@@ -1,0 +1,105 @@
+﻿@model IEnumerable<QLSV.Models.Blog>
+
+@{
+    ViewData["Title"] = "BlogFull";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int PageCurrent = ViewBag.CurrentPage;
+    int PageNext = PageCurrent + 1;
+}
+
+
+<section class="breadcrumb breadcrumb-img">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>News</h1>
+                <ul>
+                    <li><a href="index-2.html">Home</a></li>
+                    <li>News</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--========================================================
+                      NEWS
+=========================================================-->
+<section class="news mtb80">
+    <div class="container">
+        <div class="row">
+            @if (Model != null || Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    string url = $"/tin-tuc/{item.Alias}-{item.Id}.html";
+                    <div class="col-lg-4 col-md-6">
+                        <div class="news-item bxw">
+                            <div class="news-item-img">
+                                <img src="~/Images/news/@item.Image"
+                                     alt="@item.Title">
+                                <i data-src="https://www.youtube.com/watch?v=9xwazD5SyVg" data-fancybox class="fas fa-play"></i>
+                            </div>
+                            <div class="news-item-content">
+                                <span>April 28, 2021</span>
+                                <a href="@url">
+                                    <h3>
+                                        @item.Title
+                                    </h3>
+                                </a>
+                                <hr>
+                                <p>
+                                    @item.TContent
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="col-md-12 text-center mt20">
+                <a href="#" class="load-more"><i class="ti-layout-grid2"></i> Explore All</a>
+            </div>
+            <div class="nk-pagination nk-pagination-center">
+
+                @if (PageCurrent > 1)
+                {
+                    string url = $"/blogs.html";
+                    <a href="@url?page=@(PageCurrent - 1)" class="nk-pagination-prev">
+                        <span class="ion-ios-arrow-back"></span>
+                    </a>
+                }
+                else
+                {
+                    string url1 = $"/blogs.html";
+                    <a href="@url1" class="nk-pagination-prev">
+                        <span class="ion-ios-arrow-back"></span>
+                    </a>
+                }
+
+                @{
+                    string url2 = $"/blogs.html";
+                    @if (@PageCurrent < ViewBag.maxPage)
+                    {
+
+                        <nav>
+                            <a class="nk-pagination-current" href="@url2?page=@PageCurrent">@PageCurrent</a>
+                            <a href="@url2?page=@PageNext">@PageNext</a>
+                        </nav>
+                        <a class="nk-pagination-next" href="@url2?page=@PageNext">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
+                    }
+                    else
+                    {
+                        <nav>
+                            <a class="nk-pagination-current" href="@url2?page=@PageCurrent">@PageCurrent</a>
+                            <a hidden href="@url2?page=@PageNext">@PageNext</a>
+                        </nav>
+                        <a class="nk-pagination-next">
+                            <span disabled class="ion-ios-arrow-forward"></span>
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

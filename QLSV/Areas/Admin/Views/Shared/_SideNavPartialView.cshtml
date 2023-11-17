@@ -1,0 +1,126 @@
+﻿<div class="side-nav">
+    <div class="side-nav-inner">
+        <ul class="side-nav-menu scrollable">
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item">
+                    <a class="dropdown-toggle" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-dashboard"></i>
+                        </span>
+                        <span class="title">Dashboard</span>
+                        <span class="arrow">
+                            <i class="arrow-icon"></i>
+                        </span>
+                    </a>
+
+                </li>
+                @* <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">Product Management</span>
+                    </a>
+                </li> *@
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="AdminGiaoViens" asp-action="Index">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">Thông tin giảng viên</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-table"></i>
+                        </span>
+                        <span class="title">Tài khoản</span>
+                        <span class="arrow">
+                            <i class="arrow-icon"></i>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a asp-area="Admin" asp-controller="Admin" asp-action="Index">Giảng viên</a>
+                        </li>
+                    </ul>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a asp-area="Admin" asp-controller="QLAdmin" asp-action="Index">Quản trị viên</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+
+                    <a asp-area="Admin" asp-controller="AdminDiem" asp-action="Index">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-table"></i>
+                        </span>
+                        <span class="title">Điểm</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="dropdown-toggle" asp-action="Index" asp-controller="AdminTinDangs" asp-area="Admin">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">Bài viết</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="dropdown-toggle" asp-action="Index" asp-controller="AdminHocSinhs" asp-area="Admin">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">Sinh viên</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="dropdown-toggle" asp-action="Index" asp-controller="AdminKhoaHocs" asp-area="Admin">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">Khóa học</span>
+                    </a>
+                </li>
+            }
+            else if (User.IsInRole("Dev"))
+            {
+                <li class="nav-item dropdown d-flex">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-table"></i>
+                        </span>
+                    </a>
+                    <a asp-area="Admin" asp-controller="AdminDiem" asp-action="Index">Khoá học</a>
+                </li>
+                @* <li class="nav-item">
+                    <a class="dropdown-toggle" asp-action="Index" asp-controller="QLFile" asp-area="Admin">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">QL File</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="dropdown-toggle" asp-action="Index" asp-controller="QLLich" asp-area="Admin">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">QL Lich</span>
+                    </a>
+                </li> *@
+            }
+            else if (User.IsInRole("User"))
+            {
+                <li class="nav-item dropdown">
+                    <a asp-area="Admin" asp-controller="HocSinh" asp-action="Index">Khoá học</a>
+                    <a asp-area="Admin" asp-controller="HocSinh" asp-action="Refund">Khoá học của tôi</a>
+                    <a href="/cart.html">Giỏ hàng</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

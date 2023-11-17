@@ -1,0 +1,262 @@
+﻿@model QLSV.Models.HocSinh
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    QLSV.ModelViews.ChangePasswordViewModel changePassword = new QLSV.ModelViews.ChangePasswordViewModel();
+    List<QLSV.Models.File> lst = ViewBag.file;
+    List<QLSV.Models.LichHoc> lich = ViewBag.lich;
+}
+<div class="page-header no-gutters has-tab">
+    <h2 class="font-weight-normal">Setting</h2>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#tab-account">Account</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-network">Network</a>
+        </li>
+    </ul>
+</div>
+<div class="container">
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="tab-account">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-7">
+                            <div class="d-md-flex align-items-center">
+                                <div class="text-center text-sm-left ">
+                                    <div class="avatar avatar-image" style="width: 150px; height:150px">
+                                        <img src="~/Adminassets/images/avatars/thumb-3.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="text-center text-sm-left m-v-15 p-l-30">
+                                    <h2 class="m-b-5">@Model.HoTen</h2>
+                                    <p class="text-opacity font-size-13">@Model.Gmail</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="d-md-block d-none border-left col-1"></div>
+                                <div class="col">
+                                    <ul class="list-unstyled m-t-10">
+                                        <li class="row">
+                                            <p class="font-weight-semibold text-dark m-b-5">
+                                                <i class="m-r-10 text-primary anticon anticon-mail"></i>
+                                                <span>Email: </span>
+                                            </p>
+                                            <p class="col font-weight-semibold"> @Model.Gmail</p>
+                                        </li>
+                                        <li class="row">
+                                            <p class="font-weight-semibold text-dark m-b-5">
+                                                <i class="m-r-10 text-primary anticon anticon-phone"></i>
+                                                <span>Số dư tài khoản: </span>
+                                            </p>
+                                            <p class="col font-weight-semibold"> @Model.Balance đ</p>
+                                        </li>
+                                        <li class="row">
+                                            <p class="font-weight-semibold text-dark m-b-5">
+                                                <i class="m-r-10 text-primary anticon anticon-phone"></i>
+                                                <span>Ngày sinh: </span>
+                                            </p>
+                                            <p class="col font-weight-semibold"> @Model.date_of_birth.ToString("yyyy-MM-dd")</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Số dư: @Model.Balance đ</h5>
+                            <a href="/recharge" class="btn btn-success">Nạp thêm</a>
+                            <hr>
+                            <div class="d-flex justify-content-center align-center">
+                                <h5><a class="btn btn-primary" href="/diem.html">Xem điểm</a></h5>
+                                <hr>
+                                <h5><a class="btn btn-primary" href="/lich-hoc.html">Xem lịch học</a></h5>
+                                <hr>
+                                <h5><a class="btn btn-primary" href="/thong-bao.html">Xem thông báo môn học</a></h5>
+                                <hr>
+                                <h5><a class="btn btn-primary" href="/tai-lieu.html">Xem tài liệu môn học</a></h5>
+                            </div>
+                            <div class="m-t-20">
+                                    @if (lich != null)
+                                    {
+                                        foreach (var item in lich)
+                                        {
+                                            <div class="media m-b-30">
+                                                    <div class="avatar avatar-image">
+                                                        <img src="~/Adminassets/images/others/adobe-thumb.png" alt="">
+                                                    </div>
+                                                    <div class="media-body m-l-20">
+                                                        <h6 class="m-b-0">UI/UX Designer, Adobe Inc.</h6>
+                                                        <span class="font-size-13 text-gray">@item.thoiGian.ToString("dd/MM/yyyy")</span>
+                                                    </div>
+                                                </div>
+                                            @*<div class="event">
+                                                <div class="event-date">@item.thoiGian.ToString("dd/MM/yyyy")</div>
+                                            </div>*@
+                                        }
+                                    }
+                            </div>
+                            <hr>
+                            <h5>Thông tin cá nhân</h5>
+                            <div class="m-t-20">
+
+                                <form asp-controller="HocSinh" asp-action="UpdateInfo" method="post" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="Id" />
+                                    <div class="tab-content m-t-15">
+                                        <div class="tab-pane fade show active" id="product-edit-basic">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold" for="productName">Họ tên</label>
+                                                        <input type="text" class="form-control" asp-for="HoTen" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold" for="productName">Gmail</label>
+                                                        <input type="text" class="form-control" asp-for="Gmail" required readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold d-none" for="productName">password</label>
+                                                        <input hidden type="text" class="form-control" asp-for="Password" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold" for="productPrice">Ngày sinh</label>
+                                                        <input type="date" class="form-control" id="arrival_date" asp-for="date_of_birth" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+                                        <div class="m-b-15">
+                                            <button class="btn btn-primary">
+                                                <i class="anticon anticon-save"></i>
+                                                <span>Lưu</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>File</h5>
+                            @if (lst != null)
+                            {
+                                foreach (var item in lst)
+                                {
+                                    <div class="m-t-30">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-image">
+                                                <img src="~/Adminassets/images/avatars/thumb-1.jpg" alt="">
+                                            </div>
+                                            <div class="m-l-10">
+                                                <h5 class="m-b-0">
+                                                    <a href="" class="text-dark down" data-mahh="@item.name">@item.name</a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tab-network">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ảnh địa diện</h4>
+                </div>
+                <div class="card-body">
+                    <div class="media align-items-center">
+                        <div class="avatar avatar-image  m-h-10 m-r-15" style="height: 80px; width: 80px">
+                            <img src="~/Adminassets/images/avatars/thumb-3.jpg" alt="">
+                        </div>
+                        <div class="m-l-20 m-r-20">
+                            <h5 class="m-b-5 font-size-18">Change Avatar</h5>
+                            <p class="opacity-07 font-size-13 m-b-0">
+                                Recommended Dimensions: <br>
+                                120x120 Max fil size: 5MB
+                            </p>
+                        </div>
+                        <div>
+                            <button class="btn btn-tone btn-primary">Upload</button>
+                        </div>
+                    </div>
+                    <hr class="m-v-25">
+                </div>
+            </div>
+            @await Html.PartialAsync("changepasspartial", changePassword)
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(function () {
+            $(".down").click(function () {
+                var productid = $(this).attr("data-mahh");
+                var downloadLink = document.createElement("a");
+
+                downloadLink.href = "api/cart/DownloadFile?FileName=" + productid;
+                downloadLink.target = "_blank"; // Open in a new tab or window
+                downloadLink.download = productid; // Use the provided filename
+                downloadLink.style.display = "none"; // Hide the link
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+
+                document.body.removeChild(downloadLink);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#logout").click(function () {
+                $.ajax({
+                    success: function (res) {
+                        Swal.fire({
+                            title: "<h5 style='color:white'>Are you leaving</h5>",
+                            icon: 'question',
+                            iconColor: '#dd163b',
+                            allowOutsideClick: false,
+                            showCloseButton: true,
+                            showDenyButton: true,
+                            confirmButtonColor: '#3A833A',
+                            denyButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes',
+                            denyButtonText: 'Cancel',
+                            background: '#232930'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    url: "/HocSinh/Logout",
+                                    success: function (res) {
+                                        window.location.href = "/Product/Index";
+                                    }
+                                })
+                            }
+                        })
+                    }
+                });
+            });
+        });
+    </script>
+}

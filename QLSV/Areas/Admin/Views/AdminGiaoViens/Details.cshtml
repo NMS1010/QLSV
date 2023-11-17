@@ -1,0 +1,41 @@
+@model QLSV.Models.GiaoVien
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="page-header">
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item">Danh sách học sinh</a>
+                <span class="breadcrumb-item active">Thông tin học sinh : @Model.full_name</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card-body">
+    <h4 class="card-title">Thông tin học sinh : @Model.full_name</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark font-weight-semibold">@Model.Id</td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                    <td>@Model.full_name</td>
+                    </tr>
+                    <tr>
+                    <td>Gmail:</td>
+                    <td>@Model.email</td>
+                    </tr>
+                    <tr>
+                    <td>date_of_birth:</td>
+                    <td>@Model.date_of_birth</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

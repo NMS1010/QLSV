@@ -1,0 +1,122 @@
+@model QLSV.Models.KhoaHoc
+
+@{ ViewData["Title"] = "Chỉnh sửa khóa học";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml"; }
+@section Styles{
+    <link href="~/Adminassets/summernote/summernote-bs4.css" rel="stylesheet" />
+    <link href="~/Adminassets/summernote/summernote.css" rel="stylesheet" />
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Edit : @Model.course_name</span>
+        </nav>
+    </div>
+</div>
+
+<form asp-controller="AdminKhoaHocs" asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Save</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">InfNews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-description">Description</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="course_name">course_name</label>
+                        <input type="text" class="form-control" asp-for="@Model.course_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="description">description</label>
+                        <input type="text" class="form-control" asp-for="@Model.description" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="description">gia</label>
+                        <input type="number" class="form-control" asp-for="@Model.gia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-project-desc">StartDate</label>
+                        <input type="date" class="arrival_dates form-control" asp-for="@Model.NgayBatDau" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-project-desc">EndDate</label>
+                        <input type="date" class="arrival_dates form-control" asp-for="@Model.NgayKetThuc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-project-desc">Giáo viên</label>
+                        <select name="IdGiaoVien" required class="arrival_dates form-control">
+                            @foreach (var item in ViewBag.giaovien)
+                            {
+                                var selected = Model.IdGiaoVien == item.Id ? "selected" : "";
+                                <!option @selected value="@item.Id">@item.full_name</!option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Image</label>
+                        <input id="txtFiles" name="fThumb" type="file" class="form-control-file" asp-for="@Model.Image" />
+                        <span asp-validation-for="@Model.Image" class="text-danger"></span>
+                        <img id="imgViews" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/Adminassets/vendors/select2/select2.min.js"></script>
+    <script src="~/Adminassets/js/pages/e-commerce-product-edit.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="~/Adminassets/summernote/summernote-bs4.js"></script>
+
+    <script>
+
+        jQuery(document).ready(function () {
+            $('.summernote').summernote({
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+                styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5'],
+                height: 200,
+                minHeight: null,
+                maxHeight: null,
+                focus: true
+            });
+        });
+    </script>
+    <script>
+
+        jQuery(document).ready(function () {
+            $('.summernote').summernote({
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+                styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5'],
+                height: 200,
+                minHeight: null,
+                maxHeight: null,
+                focus: true
+            });
+        });
+        $("#txtFiles").change(function (event) {
+            var files = event.target.files;
+            $("#imgViews").attr("src", window.URL.createObjectURL(files[0]));
+        })
+    </script>
+}

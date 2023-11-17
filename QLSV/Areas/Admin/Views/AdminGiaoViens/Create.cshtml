@@ -1,0 +1,100 @@
+@model QLSV.Models.GiaoVien
+
+@{
+    ViewData["Title"] = "Tạo mới giáo viên";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section Styles{
+    <link href="~/Adminassets/summernote/summernote-bs4.css" rel="stylesheet" />
+    <link href="~/Adminassets/summernote/summernote.css" rel="stylesheet" />
+}
+
+
+<form asp-controller="AdminGiaoViens" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-plus-circle"></i>
+                    <span>Thêm mới</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin giáo viên</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Họ tên</label>
+                        <input type="text" class="form-control" asp-for="full_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Email</label>
+                        <input type="text" class="form-control" asp-for="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Mật khẩu</label>
+                        <input type="text" class="form-control" asp-for="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productPrice">Ngày sinh</label>
+                        <input type="date" class="form-control" id="arrival_date" asp-for="date_of_birth" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Số điện thoại</label>
+                        <input type="text" class="form-control" asp-for="phone_number" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Địa chỉ</label>
+                        <input type="text" class="form-control" asp-for="address" required>
+                    </div>
+                    @* <div class="form-group">
+                        <label class="font-weight-semibold" for="productCategory">Khóa học</label>
+                        <select class="custom-select" asp-for="IdKhoaHoc" style="min-width: 200px;" asp-items="ViewBag.khoahoc">
+                            <option value="" selected>Choose</option>
+                        </select>
+                    </div> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/Adminassets/vendors/select2/select2.min.js"></script>
+    <script src="~/Adminassets/js/pages/e-commerce-product-edit.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="~/Adminassets/summernote/summernote-bs4.js"></script>
+
+    <script>
+
+        jQuery(document).ready(function () {
+            $('.summernote').summernote({
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+                styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5'],
+                height: 200,
+                minHeight: null,
+                maxHeight: null,
+                focus: true
+            });
+        });
+        $("#txtFiles").change(function (event) {
+            var files = event.target.files;
+            $("#imgViews").attr("src", window.URL.createObjectURL(files[0]));
+        })
+    </script>
+}
+
+
+
+
+
+

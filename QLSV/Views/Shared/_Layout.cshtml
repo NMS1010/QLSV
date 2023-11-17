@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tag -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/assetions/img/favicon.ico" type="image/x-icon">
+    <!-- Title tag -->
+    <title>Quản lý sinh viên</title>
+    <!-- css -->
+    <link rel="stylesheet" href="~/assetions/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assetions/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/assetions/css/themify-icons.css">
+    <link rel="stylesheet" href="~/assetions/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assetions/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="~/assetions/css/animate.css">
+    <link rel="stylesheet" href="~/assetions/css/main.css">
+
+</head>
+
+<body class="home-3">
+    <!--=======================================================
+                            HEADER
+
+    =========================================================-->
+    @await Html.PartialAsync("_headerPartial.cshtml")
+    @RenderBody()
+    @await Html.PartialAsync("_footerPartial.cshtml")
+    <!--========================================================
+                            FOOTER
+    =========================================================-->
+    <!--========================================================
+                          Loader and toTop
+    =========================================================-->
+    <div id="preloader">
+        <div class="preloader">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="toTop">
+        <i class="ti-arrow-up"></i>
+    </div>
+
+    <!-- js -->
+    <script src="~/assetions/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assetions/js/popper.min.js"></script>
+    <script src="~/assetions/js/bootstrap.min.js"></script>
+    <script src="~/assetions/js/owl.carousel.min.js"></script>
+    <script src="~/assetions/js/jquery.fancybox.min.js"></script>
+    <script src="~/assetions/js/waypoints.min.js"></script>
+    <script src="~/assetions/js/jquery.counterup.min.js"></script>
+    <script src="~/assetions/js/wow.min.js"></script>
+    <script src="~/assetions/js/custom.js"></script>
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+
+</html>
